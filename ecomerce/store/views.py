@@ -1,7 +1,9 @@
 from django.shortcuts import render
+from .models import Producto, Venta, DetalleVenta
 
 def inicio(request):
-    context = {}
+    productos = Producto.objects.all()
+    context = {'productos': productos}
     return render(request, 'store/inicio.html', context)
 
 def productos(request):
@@ -13,9 +15,21 @@ def nosotros(request):
     return render(request, 'store/nosotros.html', context)
 
 def rosas(request):
-    context ={}
+    productos = Producto.objects.all()
+    context = {'productos': productos}
     return render(request, 'store/rosas.html', context)
 
 def carrito(request):
-    context = {}
+    if request.user.is_authenticated:
+        cliente = request.user.cliente
+        order, created = Venta.objects.get_or_create(cliente=cliente, completo=False)
+        items = order.detalleventa_set.all()
+        total = sum(item.producto.precio * item.cantidad for item in items)
+    else:
+        items = []
+        total = 0
+    context = {
+        'items': items,
+        'total': total,
+    }
     return render(request, 'store/carrito.html', context)

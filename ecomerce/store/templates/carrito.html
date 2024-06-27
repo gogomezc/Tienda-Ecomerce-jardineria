@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .producto {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .producto img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Carrito de Compras</h1>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row" id="lista-productos">
+                    <!-- Los productos se insertarán aquí mediante JavaScript -->
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4>Carrito</h4>
+                <ul class="list-group" id="lista-carrito">
+                    <!-- Los artículos del carrito se insertarán aquí mediante JavaScript -->
+                </ul>
+                <h5 class="mt-3">Total: $<span id="precio-total">0.00</span></h5>
+                <button class="btn btn-primary mt-2" id="btn-pagar">Pagar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos de ejemplo de productos
+        const productos = [
+            { id: 1, nombre: 'Producto 1', precio: 10.00, imagen: 'https://via.placeholder.com/150' },
+            { id: 2, nombre: 'Producto 2', precio: 15.00, imagen: 'https://via.placeholder.com/150' },
+            { id: 3, nombre: 'Producto 3', precio: 20.00, imagen: 'https://via.placeholder.com/150' }
+        ];
+
+        let carrito = [];
+
+        function mostrarProductos() {
+            const listaProductos = document.getElementById('lista-productos');
+            productos.forEach(producto => {
+                const col = document.createElement('div');
+                col.className = 'col-md-4';
+                col.innerHTML = `
+                    <div class="producto">
+                        <img src="${producto.imagen}" alt="${producto.nombre}">
+                        <h5>${producto.nombre}</h5>
+                        <p>$${producto.precio.toFixed(2)}</p>
+                        <button class="btn btn-success" onclick="agregarAlCarrito(${producto.id})">Agregar al Carrito</button>
+                    </div>
+                `;
+                listaProductos.appendChild(col);
+            });
+        }
+
+        function agregarAlCarrito(id) {
+            const producto = productos.find(p => p.id === id);
+            carrito.push(producto);
+            actualizarCarrito();
+        }
+
+        function actualizarCarrito() {
+            const listaCarrito = document.getElementById('lista-carrito');
+            listaCarrito.innerHTML = '';
+            let total = 0;
+            carrito.forEach(producto => {
+                const item = document.createElement('li');
+                item.className = 'list-group-item';
+                item.innerHTML = `
+                    <img src="${producto.imagen}" alt="${producto.nombre}" style="width: 50px; height: auto;">
+                    ${producto.nombre} - $${producto.precio.toFixed(2)}
+                    <button class="btn btn-danger btn-sm float-right" onclick="eliminarDelCarrito(${producto.id})">Eliminar</button>
+                `;
+                listaCarrito.appendChild(item);
+                total += producto.precio;
+            });
+            document.getElementById('precio-total').innerText = total.toFixed(2);
+        }
+
+        function eliminarDelCarrito(id) {
+            carrito = carrito.filter(producto => producto.id !== id);
+            actualizarCarrito();
+        }
+
+        document.getElementById('btn-pagar').addEventListener('click', () => {
+            alert('Gracias por su compra!');
+            carrito = [];
+            actualizarCarrito();
+        });
+
+        // Inicializar la lista de productos
+        mostrarProductos();
+    </script>
+</body>
+</html>

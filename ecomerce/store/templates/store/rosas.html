@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VerdeVivo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body.claro {
+      background-color: white;
+      color: black;
+    }
+    body.oscuro {
+      background-color: black;
+      color: white;
+    }
+    .navbar-claro {
+      background-color: white;
+      color: black;
+    }
+    .navbar-oscuro {
+      background-color: black;
+      color: white;
+    }
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: black;
+      font-family: 'Playfair Display', serif;
+    }
+    .navbar-oscuro .navbar-brand {
+      color: white;
+    }
+    .navbar-nav .nav-link,
+    .navbar-nav .btn {
+      border-radius: 20px;
+      transition: background-color 0.3s;
+      font-family: 'Playfair Display', serif;
+      margin: 1px;
+      color: white;
+    }
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .btn:hover {
+      background-color: #66BB6A;
+    }
+    .btn-primary i {
+      font-size: 1.5rem;
+    }
+    .offcanvas-header {
+      background-color: #388E3C;
+      color: white;
+    }
+    .offcanvas-title {
+      font-weight: bold;
+      font-family: 'Playfair Display', serif;
+    }
+    .btn-close {
+      filter: brightness(0) invert(1);
+    }
+    .btn-success {
+      background-color: #81C784;
+      border: none;
+      font-family: 'Playfair Display', serif;
+      color: white;
+    }
+    .btn-success:hover {
+      background-color: #66BB6A;
+    }
+    .btn-success:active, .btn-success:focus {
+      background-color: #4CAF50;
+    }
+    .btn-primary {
+      border: none;
+      margin-left: auto;
+    }
+    .dark-mode {
+      background-color: #333;
+      color: #fff;
+    }
+    .dark-mode .navbar {
+      background-color: #444;
+    }
+    .dark-mode .offcanvas-header {
+      background-color: #444;
+    }
+    .product-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: black;
+    }
+    .product-description, .product-price, .product-features h5, .review {
+      font-family: 'Playfair Display', serif;
+    }
+    .review strong {
+      font-size: 1.2rem;
+    }
+    .carousel-item img {
+      height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body class="claro">
+  <!-- Inicio de barra navegación -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-claro">
+    <div class="container-fluid">
+      <a class="navbar-brand" id="navbar-brand" href="#">VerdeVivo🌿</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link btn btn-success mx-1" href="inicio.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-success mx-1" href="Ventana3.html">Plantas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-success mx-1" href="ventana2.html">Nosotros</a>
+          </li>
+          <li class="nav-item">
+            <button id="cambiar-modo" class="btn btn-success mx-1">Cambiar tema</button>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="btn btn-success mx-1" data-bs-toggle="modal" data-bs-target="#descuentoModal">Obtener descuento</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Modal -->
+  <div class="modal fade" id="descuentoModal" tabindex="-1" role="dialog" aria-labelledby="descuentoModalEtiqueta" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="descuentoModalEtiqueta">Tu descuento</h5>
+        </div>
+        <div class="modal-body">
+          <h3>eqw2p3</h3>
+          <form id="formularioDescuento">
+            <div class="mb-3">
+              <label for="codigoDescuento" class="form-label">Ingrese su código de descuento</label>
+              <input type="text" class="form-control" id="codigoDescuento" required>
+            </div>
+            <button type="submit" class="btn btn-success">Validar Código</button>
+          </form>
+          <div id="mensajeValidacion" class="mt-3"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- aquí inicia el navbar secundario-->
+  <div class="container-fluid" style="margin-top: 20px; margin-bottom:20px; text-align: left;">
+    <h1>Nuestras plantas</h1>
+  </div>
+  <!-- aquí acaba el navbar secundario-->
+
+  <!-- EMPIEZA LA PARTE DE PRODUCTOS -->
+  <div class="container-fluid" style="margin-top: 20px;">
+    <div class="row">
+      <div class="col-12 col-md-3">
+        <div class="card" style="width: 18rem;">
+          <img src="{% static 'imagenes/planta1.jpg' %}" class="Planta1" alt="..." height="300px">
+          <div class="card-body">
+            <h5 class="card-title">Cactus</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">$0000</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-success">Añadir al carrito</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="card" style="width: 18rem;">
+          <img src="{% static 'imagenes/planta2.jpg' %}" class="card-img-top" alt="..." height="300px">
+          <div class="card-body">
+            <h5 class="card-title">Rosas</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">$0000</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-success">Añadir al carrito</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="card" style="width: 18rem;">
+          <img src="{% static 'imagenes/planta3.jpg' %}" class="card-img-top" alt="..." height="300px">
+          <div class="card-body">
+            <h5 class="card-title">Girasoles</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">$0000</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-success">Añadir al carrito</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="card" style="width: 18rem;">
+          <img src="{% static 'imagenes/planta4.jpg' %}" class="card-img-top" alt="..." height="300px">
+          <div class="card-body">
+            <h5 class="card-title">Lirios</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">$0000</h6>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-success">Añadir al carrito</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- TERMINA LA PARTE DE PRODUCTOS -->
+
+  <script>
+    document.getElementById('cambiar-modo').addEventListener('click', function() {
+      document.body.classList.toggle('oscuro');
+      document.body.classList.toggle('claro');
+      var navbar = document.querySelector('.navbar');
+      navbar.classList.toggle('navbar-claro');
+      navbar.classList.toggle('navbar-oscuro');
+
+      var navbarBrand = document.getElementById('navbar-brand');
+      if (document.body.classList.contains('oscuro')) {
+        navbarBrand.style.color = 'white';
+      } else {
+        navbarBrand.style.color = 'black';
+      }
+    });
+
+    document.getElementById('formularioDescuento').addEventListener('submit', function(evento) {
+      evento.preventDefault(); 
+      var codigoValido = 'eqw2p3';
+      var codigoUsuario = document.getElementById('codigoDescuento').value;
+      var mensajeValidacion = document.getElementById('mensajeValidacion');
+
+      if (codigoUsuario === codigoValido) {
+        mensajeValidacion.innerHTML = '<div class="alert alert-success" role="alert">Código válido. ¡Disfruta tu descuento!</div>';
+      } else {
+        mensajeValidacion.innerHTML = '<div class="alert alert-danger" role="alert">Código inválido. Inténtalo de nuevo.</div>';
+      }
+    });
+  </script> 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

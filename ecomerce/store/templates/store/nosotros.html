@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VerdeVivo</title>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous"
+    />
+    <style>
+        body.claro {
+            background-color: white;
+            color: black;
+        }
+        body.oscuro {
+            background-color: black;
+            color: white;
+        }
+        .navbar-claro {
+            background-color: white;
+            color: black;
+        }
+        .navbar-oscuro {
+            background-color: black;
+            color: white;
+        }
+        .navbar-brand {
+            color: black;
+        }
+        .navbar-oscuro .navbar-brand {
+            color: white;
+        }
+        .Cabecera {
+            text-align: center;
+            padding: 50px;
+            background-color: #f8f9fa;
+        }
+        .contenedor {
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+        .sobre {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sobre-imagen {
+            flex: 1;
+            max-width: 600px;
+            padding: 10px;
+        }
+        .sobre-imagen img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .sobre-contenido {
+            flex: 1;
+            max-width: 600px;
+            padding: 10px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .icon {
+            width: 30px;
+            margin: 0 10px;
+        }
+        .btn-verdevivo {
+            margin: 1px;
+            color: white;
+            background-color: #81c784;
+        }
+        .btn-carrito {
+            background-color: #fff;
+            border: none;
+            margin-left: auto;
+        }
+        .btn-carrito img {
+            height: 35px;
+            width: 35px;
+        }
+        .modal-title-black {
+            color: black;
+        }
+        .form-label-black {
+            color: black;
+        }
+    </style>
+</head>
+<body class="claro">
+    <!-- Inicio de barra navegación -->
+    <div class="container-fluid" style="justify-content: center"></div>
+    <nav class="navbar navbar-claro">
+        <div class="d-flex flex-wrap align-items-center">
+            <a class="navbar-brand" id="navbar-brand">VerdeVivo🌿</a>
+            <a class="btn btn-success btn-verdevivo" href="inicio.html" role="button">Inicio</a>
+            <a class="btn btn-success btn-verdevivo" href="Ventana3.html" role="button">Plantas</a>
+            <a class="btn btn-success btn-verdevivo" href="ventana2.html" role="button">Nosotros</a>
+            <button id="cambiar-modo" class="btn btn-success btn-verdevivo">Cambiar tema</button>
+            <button type="button" class="btn btn-success btn-verdevivo" data-bs-toggle="modal" data-bs-target="#descuentoModal">
+                Obtener descuento
+       
+        </div>
+    </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="descuentoModal" tabindex="-1" role="dialog" aria-labelledby="descuentoModalEtiqueta" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title modal-title-black" id="descuentoModalEtiqueta">Tu descuento</h5>
+                </div>
+                <div class="modal-body">
+                    <h3 class="modal-title-black">eqw2p3</h3>
+                    <form id="formularioDescuento">
+                        <div class="mb-3">
+                            <label for="codigoDescuento" class="form-label form-label-black">Ingrese su código de descuento</label>
+                            <input type="text" class="form-control" id="codigoDescuento" required />
+                        </div>
+                        <button type="submit" class="btn btn-success">Validar Código</button>
+                    </form>
+                    <div id="mensajeValidacion" class="mt-3"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- aqui incia el navbar secundario-->
+    <div class="Cabecera">
+        <h1>Sobre nosotros</h1>
+        <p>
+            VerdeVivo🌿 Es una pequeña empresa familiar especializada en la venta de
+            maceteros y plantas de una amplia variedad
+        </p>
+    </div>
+
+    <div class="contenedor">
+        <section class="sobre">
+            <div class="sobre-imagen">
+                <img src="img/Plantas-sobre.jpg" alt="Plantas" />
+            </div>
+            <div class="sobre-contenido">
+                <h2>Aca nos preocupamos sobre tus plantas</h2>
+                <p>
+                    En VerdeVivo🌿, ofrecemos una selección de plantas y maceteros de
+                    alta calidad para embellecer cualquier espacio. Nuestro objetivo es
+                    ayudarte a crear un ambiente verde y acogedor con productos
+                    cuidadosamente seleccionados y asesoramiento experto. ¡Transforma tu
+                    hogar con nuestras plantas hoy mismo!
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- aqui acaba el navbar secundario-->
+
+    <footer>
+        <div>
+            <a href="https://www.facebook.com/">
+                <img class="icon" src="img/facebook.png" onmouseover="this.src='img/facebook-hover.png';" onmouseout="this.src='img/facebook.png';" alt="Facebook" />
+            </a>
+            <a href="https://twitter.com/?lang=es">
+                <img class="icon" src="img/twitter.png" onmouseover="this.src='img/twitter-hover.png';" onmouseout="this.src='img/twitter.png';" alt="Twitter" />
+            </a>
+            <a href="https://www.instagram.com/">
+                <img class="icon" src="img/instagram.png" onmouseover="this.src='img/instagram-hover.png';" onmouseout="this.src='img/instagram.png';" alt="Instagram" />
+            </a>
+            <p>Nuestras Redes Sociales</p>
+        </div>
+    </footer>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+    ></script>
+    <script>
+        document.getElementById("cambiar-modo").addEventListener("click", function () {
+            document.body.classList.toggle("oscuro");
+            document.body.classList.toggle("claro");
+            var navbar = document.querySelector(".navbar");
+            navbar.classList.toggle("navbar-claro");
+            navbar.classList.toggle("navbar-oscuro");
+
+            var navbarBrand = document.getElementById("navbar-brand");
+            if (document.body.classList.contains("oscuro")) {
+                navbarBrand.style.color = "white";
+            } else {
+                navbarBrand.style.color = "black";
+            }
+        });
+
+        document.getElementById("formularioDescuento").addEventListener("submit", function (evento) {
+            evento.preventDefault();
+            var codigoValido = "eqw2p3";
+            var codigoUsuario = document.getElementById("codigoDescuento").value;
+            var mensajeValidacion = document.getElementById("mensajeValidacion");
+
+            if (codigoUsuario === codigoValido) {
+                mensajeValidacion.innerHTML =
+                    '<div class="alert alert-success" role="alert">Código válido. ¡Disfruta tu descuento!</div>';
+            } else {
+                mensajeValidacion.innerHTML =
+                    '<div class="alert alert-danger" role="alert">Código inválido. Inténtalo de nuevo.</div>';
+            }
+        });
+    </script>
+</body>
+</html>

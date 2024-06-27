@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Producto, Venta, DetalleVenta
 
+
 def inicio(request):
     productos = Producto.objects.all()
     context = {'productos': productos}
@@ -18,6 +19,11 @@ def rosas(request):
     productos = Producto.objects.all()
     context = {'productos': productos}
     return render(request, 'store/rosas.html', context)
+
+ 
+def crud(request):
+    context = {}
+    return render(request, 'store/crud.html', context)
 
 def carrito(request):
     if request.user.is_authenticated:

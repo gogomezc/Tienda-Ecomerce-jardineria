@@ -1,7 +1,7 @@
-{% load static custom_filters %}
-
 <!DOCTYPE html>
 <html lang="es">
+    {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,14 +39,14 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="box-element">
-                    <a class="btn btn-outline-dark" href="{% url 'store' %}">&#x2190; Continuar Comprando</a>
+                    <a class="btn btn-outline-dark" href="">&#x2190; Continuar Comprando</a>
                     <br><br>
                     <table class="table">
                         <tr>
                             <th><h5>Items: <strong>{{ items|length }}</strong></h5></th>
                             <th><h5>Total: <strong>${{ total }}</strong></h5></th>
                             <th>
-                                <a style="float:right; margin:5px;" class="btn btn-success" href="{% url 'checkout' %}">Pagar</a>
+                                <a style="float:right; margin:5px;" class="btn btn-success" href="">Pagar</a>
                             </th>
                         </tr>
                     </table>
@@ -62,9 +62,9 @@
                     </div>
                     {% for item in items %}
                     <div class="cart-row">
-                        <div style="flex:2"><img class="row-image" src="{{ item.product.imagen.url }}" alt="{{ item.product.nombre }}"></div>
-                        <div style="flex:2"><p>{{ item.product.nombre }}</p></div>
-                        <div style="flex:1"><p>${{ item.product.precio }}</p></div>
+                        <div style="flex:2"><img class="row-image" src="{{ item.producto.imagen.url }}" alt="{{ item.producto.nombre }}"></div>
+                        <div style="flex:2"><p>{{ item.producto.nombre }}</p></div>
+                        <div style="flex:1"><p>${{ item.producto.precio }}</p></div>
                         <div style="flex:1">
                             <p class="quantity">{{ item.cantidad }}</p>
                         </div>

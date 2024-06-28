@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create Cliente</title>
+    <title>Crear {{ modelo|title }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1 class="my-4 text-center">Crear Cliente</h1>
-        <form method="POST" action="{% url 'crearcli' %}">
+        <h1 class="my-4 text-center">Crear {{ modelo|title }}</h1>
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-    
-    <!-- Bootstrap CSS (se asume que Bootstrap está vinculado en tu base.html o en el layout global) -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Si no está vinculado, puedes agregar el enlace aquí -->
 </body>
 </html>

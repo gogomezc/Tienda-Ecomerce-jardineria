@@ -4,16 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}CRUD{% endblock %}</title>
+    <title>CRUD</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
-                <h1 class="my-4 text-center">{% block header %}Gestión CRUD de Clientes{% endblock %}</h1>
-                {% block content %}
+            <div class="col-md-6">
+                <h1 class="my-4 text-center">Gestión CRUD de Clientes</h1>
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
@@ -25,15 +24,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for c in cliente %}
+                        {% for c in clientes %}
                         <tr>
                             <td>{{ c.id }}</td>
                             <td>{{ c.user.username }}</td>
                             <td>{{ c.nombre }}</td>
                             <td>{{ c.email }}</td>
                             <td>
-                                <a href="{% url 'modificar' c.id %}" class="btn btn-sm btn-primary">Modificar</a>
-                                <a href="{% url 'eliminar' c.id %}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este cliente?');">Eliminar</a>
+                                <a href="{% url 'modificar' 'cliente' c.id %}" class="btn btn-sm btn-primary">Modificar</a>
+                                <a href="{% url 'eliminar' 'cliente' c.id %}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este cliente?');">Eliminar</a>
                             </td>
                         </tr>
                         {% empty %}
@@ -43,9 +42,38 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <a href="{% url 'crear' %}" class="btn btn-success mt-3">Crear nuevo cliente</a>
-                
-                {% endblock %}
+                <a href="{% url 'crear' 'cliente' %}" class="btn btn-success mt-3">Crear nuevo cliente</a>
+            </div>
+            <div class="col-md-6">
+                <h1 class="my-4 text-center">Gestión CRUD de Productos</h1>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos %}
+                        <tr>
+                            <td>{{ producto.id }}</td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>{{ producto.precio }}</td>
+                            <td>
+                                <a href="{% url 'modificar' 'producto' producto.id %}" class="btn btn-sm btn-primary">Modificar</a>
+                                <a href="{% url 'eliminar' 'producto' producto.id %}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este producto?');">Eliminar</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4">No hay productos registrados.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{% url 'crear' 'producto' %}" class="btn btn-success mt-3">Crear nuevo producto</a>
             </div>
         </div>
     </div>

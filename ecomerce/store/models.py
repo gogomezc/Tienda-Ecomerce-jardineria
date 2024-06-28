@@ -11,6 +11,7 @@ class Cliente(models.Model):
         return self.nombre
     
 class Producto(models.Model):
+    id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=200, null=True)
     precio = models.FloatField()
     digital = models.BooleanField(default=False, null=True, blank=False)

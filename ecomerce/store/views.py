@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Producto, Venta, DetalleVenta, Cliente 
 from .forms import ClienteCreateForm
 from django.urls import reverse_lazy
+from .forms import ProductoForm 
 
 def inicio(request):
     productos = Producto.objects.all()
@@ -24,51 +25,59 @@ def rosas(request):
  
 # Starting CRUD section
 def crud(request):
-    clientesListados = Cliente.objects.all()
-    return render(request, 'store/crud.html',{"cliente":   clientesListados})
+    clientes = Cliente.objects.all()
+    productos = Producto.objects.all()
+    return render(request, 'store/crud.html', {'clientes': clientes, 'productos': productos})
 
-def crear(request, *args, **kwargs):
-    form = ClienteCreateForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'store/crear.html', context)
-
-def crearcli(request):
-    if request.method == 'POST':
-        form = ClienteCreateForm(request.POST)
-        if form.is_valid():
-            form.save()  # This saves the form data to the database
-            return redirect('crud')  # Redirect to the 'crud' view upon successful save
+def crear(request, modelo):
+    if modelo == 'cliente':
+        if request.method == 'POST':
+            form = ClienteCreateForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('crud')
         else:
-            print(form.errors)  # Print form errors to console for debugging
-    else:
-        form = ClienteCreateForm()
+            form = ClienteCreateForm()
+    elif modelo == 'producto':
+        if request.method == 'POST':
+            form = ProductoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return redirect('crud')
+        else:
+            form = ProductoForm()
     
-    return render(request, 'store/crear.html', {'form': form})    
+    return render(request, 'store/crear.html', {'form': form, 'modelo': modelo})
 
+def modificar(request, modelo, pk):
+    if modelo == 'cliente':
+        instance = get_object_or_404(Cliente, pk=pk)
+        form_class = ClienteCreateForm
+    elif modelo == 'producto':
+        instance = get_object_or_404(Producto, pk=pk)
+        form_class = ProductoForm
 
-def eliminar_cliente(request, pk):
-    cliente = get_object_or_404(Cliente, pk=pk)
-    
     if request.method == 'POST':
-        cliente.delete()
-        return redirect('crud')  # Redirigir a la lista de clientes después de eliminar
-    
-    return render(request, 'store/eliminar.html', {'cliente': cliente})
-
-def modificar(request, cliente_id):
-    cliente = get_object_or_404(Cliente, id=cliente_id)
-    
-    if request.method == 'POST':
-        form = ClienteCreateForm(request.POST, instance=cliente)
+        form = form_class(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
-            return redirect('crud')  # Redirigir a la lista de clientes (crud) al guardar exitosamente
+            return redirect('crud')
     else:
-        form = ClienteCreateForm(instance=cliente)
+        form = form_class(instance=instance)
     
-    return render(request, 'store/modificar.html', {'form': form})
+    return render(request, 'store/modificar.html', {'form': form, 'modelo': modelo})
+
+def eliminar(request, modelo, pk):
+    if modelo == 'cliente':
+        instance = get_object_or_404(Cliente, pk=pk)
+    elif modelo == 'producto':
+        instance = get_object_or_404(Producto, pk=pk)
+    
+    if request.method == 'POST':
+        instance.delete()
+        return redirect('crud')
+    
+    return render(request, 'store/eliminar.html', {'instance': instance, 'modelo': modelo})
 #termina crud section 
 
 def carrito(request):

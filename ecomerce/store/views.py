@@ -22,6 +22,7 @@ def rosas(request):
     return render(request, 'store/rosas.html', context)
 
  
+# Starting CRUD section
 def crud(request):
     clientesListados = Cliente.objects.all()
     return render(request, 'store/crud.html',{"cliente":   clientesListados})
@@ -47,6 +48,15 @@ def crearcli(request):
     return render(request, 'store/crear.html', {'form': form})    
 
 
+def eliminar_cliente(request, pk):
+    cliente = get_object_or_404(Cliente, pk=pk)
+    
+    if request.method == 'POST':
+        cliente.delete()
+        return redirect('crud')  # Redirigir a la lista de clientes después de eliminar
+    
+    return render(request, 'store/eliminar.html', {'cliente': cliente})
+
 def modificar(request, cliente_id):
     cliente = get_object_or_404(Cliente, id=cliente_id)
     
@@ -59,6 +69,7 @@ def modificar(request, cliente_id):
         form = ClienteCreateForm(instance=cliente)
     
     return render(request, 'store/modificar.html', {'form': form})
+#termina crud section 
 
 def carrito(request):
     if request.user.is_authenticated:

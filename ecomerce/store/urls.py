@@ -11,4 +11,5 @@ urlpatterns = [
     path('crear/', views.crear, name='crear'),
     path('crearcli/', views.crearcli, name='crearcli'),
     path('modificar/<int:cliente_id>/', views.modificar, name='modificar'),
+    path('eliminar/<int:pk>/', views.eliminar_cliente, name='eliminar'),
 ]

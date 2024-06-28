@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Cliente</title>
+</head>
+<body>
+    <h1>Create Cliente</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="id_user">User:</label>
+        {{ form.user }}
+        <br>
+        <label for="id_nombre">Nombre:</label>
+        {{ form.nombre }}
+        <br>
+        <label for="id_email">Email:</label>
+        {{ form.email }}
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

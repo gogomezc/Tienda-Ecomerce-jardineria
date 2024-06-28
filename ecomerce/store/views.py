@@ -1,8 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Producto, Venta, DetalleVenta, Cliente 
-from .forms import ClienteCreateForm
-from django.urls import reverse_lazy
-from .forms import ProductoForm 
+from django.contrib.auth.decorators import login_required
+from .models import Producto, Venta, DetalleVenta, Cliente
+from .forms import ClienteCreateForm, ProductoForm
 
 def inicio(request):
     productos = Producto.objects.all()
@@ -22,8 +21,7 @@ def rosas(request):
     context = {'productos': productos}
     return render(request, 'store/rosas.html', context)
 
- 
-# Starting CRUD section
+# CRUD Section
 def crud(request):
     clientes = Cliente.objects.all()
     productos = Producto.objects.all()
@@ -78,19 +76,65 @@ def eliminar(request, modelo, pk):
         return redirect('crud')
     
     return render(request, 'store/eliminar.html', {'instance': instance, 'modelo': modelo})
-#termina crud section 
 
+# Carrito Section
+@login_required
+def agregar_al_carrito(request, producto_id):
+    cliente = request.user.cliente
+    producto = get_object_or_404(Producto, id=producto_id)
+    venta, created = Venta.objects.get_or_create(cliente=cliente, completo=False)
+
+    detalle_venta, created = DetalleVenta.objects.get_or_create(
+        venta=venta,
+        producto=producto,
+    )
+
+    detalle_venta.cantidad += 1
+    detalle_venta.save()
+
+    return redirect('carrito')
+
+@login_required
+def eliminar_del_carrito(request, item_id):
+    item = get_object_or_404(DetalleVenta, id=item_id)
+    item.delete()
+    return redirect('carrito')
+
+@login_required
+def incrementar_cantidad(request, item_id):
+    item = get_object_or_404(DetalleVenta, id=item_id)
+    item.cantidad += 1
+    item.save()
+    return redirect('carrito')
+
+@login_required
+def decrementar_cantidad(request, item_id):
+    item = get_object_or_404(DetalleVenta, id=item_id)
+    if item.cantidad > 1:
+        item.cantidad -= 1
+        item.save()
+    return redirect('carrito')
+
+@login_required
 def carrito(request):
-    if request.user.is_authenticated:
-        cliente = request.user.cliente
-        order, created = Venta.objects.get_or_create(cliente=cliente, completo=False)
-        items = order.detalleventa_set.all()
-        total = sum(item.producto.precio * item.cantidad for item in items)
-    else:
-        items = []
-        total = 0
+    cliente = request.user.cliente
+    venta, created = Venta.objects.get_or_create(cliente=cliente, completo=False)
+    items = venta.detalleventa_set.all()
+    items_total = []
+    total = 0
+
+    for item in items:
+        item_total = item.producto.precio * item.cantidad
+        total += item_total
+        items_total.append({
+            'id': item.id,
+            'producto': item.producto,
+            'cantidad': item.cantidad,
+            'total': item_total,
+        })
+    
     context = {
-        'items': items,
+        'items': items_total,
         'total': total,
     }
     return render(request, 'store/carrito.html', context)

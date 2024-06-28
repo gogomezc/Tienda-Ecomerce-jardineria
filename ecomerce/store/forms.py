@@ -7,4 +7,7 @@ class ClienteCreateForm(forms.ModelForm):
         fields = ['user', 'nombre', 'email']
         
   
-
+class ProductoForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ['nombre', 'precio', 'digital', 'image']

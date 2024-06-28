@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Modificar Cliente</title>
+    <title>Modificar {{ modelo|title }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1 class="my-4 text-center">Modificar Cliente</h1>
-        <form method="POST" action="">
+        <h1 class="my-4 text-center">Modificar {{ modelo|title }}</h1>
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-    
-    <!-- Bootstrap CSS (se asume que Bootstrap está vinculado en tu base.html o en el layout global) -->
-    <!-- Si no está vinculado, puedes agregar el enlace aquí -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </body>
 </html>

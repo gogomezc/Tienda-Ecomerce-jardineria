@@ -5,3 +5,6 @@ class ClienteCreateForm(forms.ModelForm):
     class Meta:
         model = Cliente
         fields = ['user', 'nombre', 'email']
+        
+  
+

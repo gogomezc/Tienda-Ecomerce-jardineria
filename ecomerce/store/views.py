@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Producto, Venta, DetalleVenta, Cliente
+from .models import Producto, Venta, DetalleVenta, Cliente 
 from .forms import ClienteCreateForm
-
+from django.urls import reverse_lazy
 
 def inicio(request):
     productos = Producto.objects.all()
@@ -37,17 +37,28 @@ def crearcli(request):
     if request.method == 'POST':
         form = ClienteCreateForm(request.POST)
         if form.is_valid():
-            user = form.cleaned_data('user')
-            nombre = form.cleaned_data('nombre')
-            email = form.cleaned_data('email')
-           
-            c, created = Cliente.objects.get_or_create(user=user, nombre=nombre, email=email)
-            c.save()
-            return redirect('crud')
+            form.save()  # This saves the form data to the database
+            return redirect('crud')  # Redirect to the 'crud' view upon successful save
+        else:
+            print(form.errors)  # Print form errors to console for debugging
     else:
         form = ClienteCreateForm()
-    return render(request, 'store/crear.html', {'form': form})
+    
+    return render(request, 'store/crear.html', {'form': form})    
 
+
+def modificar(request, cliente_id):
+    cliente = get_object_or_404(Cliente, id=cliente_id)
+    
+    if request.method == 'POST':
+        form = ClienteCreateForm(request.POST, instance=cliente)
+        if form.is_valid():
+            form.save()
+            return redirect('crud')  # Redirigir a la lista de clientes (crud) al guardar exitosamente
+    else:
+        form = ClienteCreateForm(instance=cliente)
+    
+    return render(request, 'store/modificar.html', {'form': form})
 
 def carrito(request):
     if request.user.is_authenticated:

@@ -8,7 +8,121 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<style>
+    body.claro {
+      background-color: white;
+      color: black;
+    }
+    body.oscuro {
+      background-color: black;
+      color: white;
+    }
+    .navbar {
+      background-color: #D3D3D3; /* Gris claro */
+      color: black;
+    }
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: black;
+      font-family: 'Playfair Display', serif;
+    }
+    .navbar-nav .nav-link,
+    .navbar-nav .btn {
+      border-radius: 20px;
+      transition: background-color 0.3s, color 0.3s;
+      font-family: 'Playfair Display', serif;
+      margin: 1px;
+      color: black;
+    }
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .btn:hover {
+      background-color: white;
+      color: black;
+    }
+    .btn-primary i {
+      font-size: 1.5rem;
+    }
+    .offcanvas-header {
+      background-color: #388E3C;
+      color: white;
+    }
+    .offcanvas-title {
+      font-weight: bold;
+      font-family: 'Playfair Display', serif;
+    }
+    .btn-close {
+      filter: brightness(0) invert(1);
+    }
+    .btn-success {
+      background-color: #81C784;
+      border: none;
+      font-family: 'Playfair Display', serif;
+      color: white;
+    }
+    .btn-success:hover {
+      background-color: #66BB6A;
+    }
+    .btn-success:active,
+    .btn-success:focus {
+      background-color: #4CAF50;
+    }
+    .btn-primary {
+      border: none;
+      margin-left: auto;
+    }
+    .product-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: black;
+    }
+    .product-description,
+    .product-price,
+    .product-features h5,
+    .review {
+      font-family: 'Playfair Display', serif;
+    }
+    .review strong {
+      font-size: 1.2rem;
+    }
+    .carousel-item img {
+      height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  </style>
+
 <body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" id="navbar-brand" href="#">VerdeVivo🌿</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'rosas' %}">Plantas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'crud' %}">CRUD</a>
+              </li>
+              <li class="nav-item">
+                <button id="cambiar-modo" class="btn nav-link">Cambiar tema</button>
+              </li>
+              <li class="nav-item">
+                <button type="button" class="btn nav-link" data-bs-toggle="modal" data-bs-target="#descuentoModal">Descuento</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">

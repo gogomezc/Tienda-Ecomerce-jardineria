@@ -124,17 +124,43 @@ def carrito(request):
     total = 0
 
     for item in items:
-        item_total = item.producto.precio * item.cantidad
-        total += item_total
-        items_total.append({
-            'id': item.id,
-            'producto': item.producto,
-            'cantidad': item.cantidad,
-            'total': item_total,
-        })
+        if item.producto:  # Verificar que el producto no sea None
+            item_total = item.producto.precio * item.cantidad
+            total += item_total
+            items_total.append({
+                'id': item.id,
+                'producto': item.producto,
+                'cantidad': item.cantidad,
+                'total': item_total,
+            })
+        else:
+            # Manejar el caso donde el producto es None
+            items_total.append({
+                'id': item.id,
+                'producto': None,
+                'cantidad': item.cantidad,
+                'total': 0,
+            })
     
     context = {
         'items': items_total,
         'total': total,
     }
     return render(request, 'store/carrito.html', context)
+
+
+def pagar(request):
+    cliente = request.user.cliente
+    venta = get_object_or_404(Venta, cliente=cliente, completo=False)
+    
+    # Eliminar todos los detalles de la venta
+    venta.detalleventa_set.all().delete()
+    
+    # Marcar la venta como completa
+    venta.completo = True
+    venta.save()
+
+    # Crear una nueva venta vacía para el cliente
+    Venta.objects.create(cliente=cliente, completo=False)
+
+    return redirect('inicio')

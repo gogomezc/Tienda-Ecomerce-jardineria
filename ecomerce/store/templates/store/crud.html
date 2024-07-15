@@ -1,14 +1,12 @@
-<!-- crud.html -->
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+{% load static %}
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CRUD</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
     body.claro {
       background-color: white;
       color: black;
@@ -18,7 +16,7 @@
       color: white;
     }
     .navbar {
-      background-color: #D3D3D3; /* Gris claro */
+      background-color: transparent; /* Fondo transparente */
       color: black;
     }
     .navbar-brand {
@@ -91,110 +89,133 @@
       border-radius: 10px;
     }
   </style>
-
-<body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-          <a class="navbar-brand" id="navbar-brand" href="#">VerdeVivo🌿</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'rosas' %}">Plantas</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'crud' %}">CRUD</a>
-              </li>
-              <li class="nav-item">
-                <button id="cambiar-modo" class="btn nav-link">Cambiar tema</button>
-              </li>
-              <li class="nav-item">
-                <button type="button" class="btn nav-link" data-bs-toggle="modal" data-bs-target="#descuentoModal">Descuento</button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h1 class="my-4 text-center">Gestión CRUD de Clientes</h1>
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Usuario</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for c in clientes %}
-                        <tr>
-                            <td>{{ c.id }}</td>
-                            <td>{{ c.user.username }}</td>
-                            <td>{{ c.nombre }}</td>
-                            <td>{{ c.email }}</td>
-                            <td>
-                                <a href="{% url 'modificar' 'cliente' c.id %}" class="btn btn-sm btn-primary">Modificar</a>
-                                <a href="{% url 'eliminar' 'cliente' c.id %}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este cliente?');">Eliminar</a>
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="5">No hay clientes registrados.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <a href="{% url 'crear' 'cliente' %}" class="btn btn-success mt-3">Crear nuevo cliente</a>
-            </div>
-            <div class="col-md-6">
-                <h1 class="my-4 text-center">Gestión CRUD de Productos</h1>
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Precio</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for producto in productos %}
-                        <tr>
-                            <td>{{ producto.id }}</td>
-                            <td>{{ producto.nombre }}</td>
-                            <td>{{ producto.precio }}</td>
-                            <td>
-                                <a href="{% url 'modificar' 'producto' producto.id %}" class="btn btn-sm btn-primary">Modificar</a>
-                                <a href="{% url 'eliminar' 'producto' producto.id %}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este producto?');">Eliminar</a>
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="4">No hay productos registrados.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <a href="{% url 'crear' 'producto' %}" class="btn btn-success mt-3">Crear nuevo producto</a>
-            </div>
-        </div>
+</head>
+<body class="claro">
+  <!-- Inicio de barra navegación -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" id="navbar-brand" href="#">VerdeVivo🌿</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'rosas' %}">Plantas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'crud' %}">CRUD</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </nav>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <h1 class="my-4 text-center">Gestión CRUD de Clientes</h1>
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th>ID</th>
+              <th>Usuario</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in clientes %}
+            <tr>
+              <td>{{ c.id }}</td>
+              <td>{{ c.user.username }}</td>
+              <td>{{ c.nombre }}</td>
+              <td>{{ c.email }}</td>
+              <td>
+                <a href="{% url 'modificar' 'cliente' c.id %}" class="btn btn-sm btn-primary">Modificar</a>
+                <a href="{% url 'eliminar' 'cliente' c.id %}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este cliente?');">Eliminar</a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="5">No hay clientes registrados.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <a href="{% url 'crear' 'cliente' %}" class="btn btn-success mt-3">Crear nuevo cliente</a>
+      </div>
+      <div class="col-md-6">
+        <h1 class="my-4 text-center">Gestión CRUD de Productos</h1>
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for producto in productos %}
+            <tr>
+              <td>{{ producto.id }}</td>
+              <td>{{ producto.nombre }}</td>
+              <td>{{ producto.precio }}</td>
+              <td>
+                <a href="{% url 'modificar' 'producto' producto.id %}" class="btn btn-sm btn-primary">Modificar</a>
+                <a href="{% url 'eliminar' 'producto' producto.id %}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro de eliminar este producto?');">Eliminar</a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4">No hay productos registrados.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <a href="{% url 'crear' 'producto' %}" class="btn btn-success mt-3">Crear nuevo producto</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script>
+    document.getElementById('cambiar-modo').addEventListener('click', function() {
+      document.body.classList.toggle('oscuro');
+      document.body.classList.toggle('claro');
+      var navbar = document.querySelector('.navbar');
+      navbar.classList.toggle('navbar-claro');
+      navbar.classList.toggle('navbar-oscuro');
+      
+      var navbarBrand = document.getElementById('navbar-brand');
+      if (document.body.classList.contains('oscuro')) {
+        navbarBrand.style.color = 'white';
+      } else {
+        navbarBrand.style.color = 'black';
+      }
+    });
+
+    document.getElementById('formularioDescuento').addEventListener('submit', function(evento) {
+      evento.preventDefault(); 
+      var codigoValido = 'eqw2p3';
+      var codigoUsuario = document.getElementById('codigoDescuento').value;
+      var mensajeValidacion = document.getElementById('mensajeValidacion');
+
+      if (codigoUsuario === codigoValido) {
+        mensajeValidacion.innerHTML = '<div class="alert alert-success" role="alert">Código válido. ¡Disfruta tu descuento!</div>';
+      } else {
+        mensajeValidacion.innerHTML = '<div class="alert alert-danger" role="alert">Código inválido. Inténtalo de nuevo.</div>';
+      }
+    });
+  </script>
 </body>
 </html>

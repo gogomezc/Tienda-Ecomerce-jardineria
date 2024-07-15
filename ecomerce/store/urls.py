@@ -17,5 +17,6 @@ urlpatterns = [
     path('accounts/login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('incrementar/<int:item_id>/', views.incrementar_cantidad, name='incrementar_cantidad'),
-    path('decrementar/<int:item_id>/', views.decrementar_cantidad, name='decrementar_cantidad')
+    path('decrementar/<int:item_id>/', views.decrementar_cantidad, name='decrementar_cantidad'),
+    path('pagar/', views.pagar, name='pagar'),
 ]

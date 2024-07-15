@@ -16,7 +16,7 @@
       color: white;
     }
     .navbar-claro {
-      background-color: white;
+      background-color: transparent;
       color: black;
     }
     .navbar-oscuro {
@@ -25,6 +25,7 @@
     }
     .navbar-brand {
       color: black;
+      font-family: 'Playfair Display', serif;
     }
     .navbar-oscuro .navbar-brand {
       color: white;
@@ -36,6 +37,7 @@
     .carousel-item img {
       height: 450px; /* Ajusta la altura de las imágenes */
       object-fit: cover; /* Para que las imágenes se ajusten sin distorsión */
+      border-radius: 10px;
     }
     .carousel {
       max-width: 1500px; /* Ancho máximo del carrusel */
@@ -50,33 +52,53 @@
       flex-direction: column;
       justify-content: space-between;
       height: 100%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+    }
+    .producto:hover {
+      transform: scale(1.05); /* Aumenta el tamaño del producto en un 5% */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Añade sombra */
     }
     .producto img {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
+      width: 100%;
+      height: 200px; /* Ajusta la altura de la imagen para que todas sean iguales */
+      object-fit: cover; /* Ajusta la imagen dentro del contenedor sin distorsionar */
       border-radius: 5px;
     }
     .producto h2 {
       font-size: 1.5rem;
       margin: 10px 0;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
     }
     .producto p {
       font-size: 1.2rem;
       margin: 10px 0;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
     }
     .btn-success {
       margin-top: auto;
+      background-color: #81C784;
+      border: none;
+      font-family: 'Playfair Display', serif;
+      color: white;
+      transition: background-color 0.3s;
+    }
+    .btn-success:hover {
+      background-color: #66BB6A;
+    }
+    .btn-success:active,
+    .btn-success:focus {
+      background-color: #4CAF50;
     }
     .navbar {
-      background-color: #D3D3D3; /* Gris claro */
+      background-color: transparent; /* Fondo transparente */
       color: black;
     }
     .navbar-brand {
       font-weight: bold;
       font-size: 1.5rem;
       color: black;
-      font-family: 'Playfair Display', serif;
     }
     .navbar-nav .nav-link,
     .navbar-nav .btn {
@@ -104,19 +126,6 @@
     }
     .btn-close {
       filter: brightness(0) invert(1);
-    }
-    .btn-success {
-      background-color: #81C784;
-      border: none;
-      font-family: 'Playfair Display', serif;
-      color: white;
-    }
-    .btn-success:hover {
-      background-color: #66BB6A;
-    }
-    .btn-success:active,
-    .btn-success:focus {
-      background-color: #4CAF50;
     }
     .btn-primary {
       border: none;
@@ -165,15 +174,6 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'crud' %}">CRUD</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'carrito' %}">carro de compras</a>
-          </li>
-          <li class="nav-item">
-            <button id="cambiar-modo" class="btn nav-link">Cambiar tema</button>
-          </li>
-          <li class="nav-item">
-            <button type="button" class="btn nav-link" data-bs-toggle="modal" data-bs-target="#descuentoModal">Descuento</button>
-          </li>
         </ul>
       </div>
     </div>
@@ -189,13 +189,13 @@
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="{% static 'imagenes/5b5dbdd0e2a6dcacabd7f4f8ce9de3df.jpg' %}" class="d-block w-100" alt="...">
+          <img src="{% static 'imagenes/casa.jpg' %}" class="d-block w-100" alt="Casa">
         </div>
         <div class="carousel-item">
-          <img src="{% static 'imagenes/d2e4ed3306b60642a22aceb4f49c6e9d.jpg' %}" class="d-block w-100" alt="...">
+          <img src="{% static 'imagenes/casa2.jpg' %}" class="d-block w-100" alt="Casa 2">
         </div>
         <div class="carousel-item">
-          <img src="{% static 'imagenes/34dae5d1f8189fcea0d481b531b5946e.jpg' %}" class="d-block w-100" alt="...">
+          <img src="{% static 'imagenes/casa4.jpg' %}" class="d-block w-100" alt="Casa 3">
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselAutoplaying" data-bs-slide="prev">
@@ -219,27 +219,19 @@
   <!-- Aquí inicia la parte de productos -->
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-12 col-md-4 mb-4">
-        <div class="card" style="width: 18rem; margin: 0 auto;">
-          <img src="{% static 'imagenes/planta1.jpg' %}" class="card-img-top" alt="..." style="height: 300px;">
-          <div class="card-body">
-            <a class="btn btn-success" href="producto.html" style="margin: 5px; color: white; background-color: #81C784;" role="button">Comprar</a>
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="card h-100" style="margin: 0 auto;">
+          <img src="{% static 'imagenes/macetero_4.jpg' %}" class="card-img-top" alt="Macetero" style="height: 400px;">
+          <div class="card-body d-flex flex-column">
+            <a class="btn btn-success mt-auto" href="{% url 'rosas' %}" role="button">Nuestros productos</a>
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-4 mb-4">
-        <div class="card" style="width: 18rem; margin: 0 auto;">
-          <img src="{% static 'imagenes/planta3.jpg' %}" class="card-img-top" alt="..." style="height: 300px;">
-          <div class="card-body">
-            <a class="btn btn-success" href="producto.html" style="margin: 5px; color: white; background-color: #81C784;" role="button">Comprar</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-4 mb-4">
-        <div class="card" style="width: 18rem; margin: 0 auto;">
-          <img src="{% static 'imagenes/planta2.jpg' %}" class="card-img-top" alt="..." style="height: 300px;">
-          <div class="card-body">
-            <a class="btn btn-success" href="producto.html" style="margin: 5px; color: white; background-color: #81C784;" role="button">Comprar</a>
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="card h-100" style="margin: 0 auto;">
+          <img src="{% static 'imagenes/paisaje.jpg' %}" class="card-img-top" alt="Paisaje" style="height: 400px;  ">
+          <div class="card-body d-flex flex-column">
+            <a class="btn btn-success mt-auto" href="{% url 'nosotros' %}" role="button">Nosotros</a>
           </div>
         </div>
       </div>
